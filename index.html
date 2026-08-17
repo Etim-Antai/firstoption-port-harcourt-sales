@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="Firstoption Sales Hub - Sales performance, customers and transaction analytics dashboard"
+  >
+
+  <meta
+    name="theme-color"
+    content="#071b3a"
+  >
+
+  <title>Firstoption Sales Dashboard</title>
+
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <!-- Dashboard Styles -->
+  <link rel="stylesheet" href="css/style2.css">
+</head>
+
+<body>
+
+<div class="app-shell">
+
+  <!-- =====================================================
+       SIDEBAR
+       ===================================================== -->
+
+  <aside class="sidebar">
+
+    <!-- BRAND -->
+    <div class="brand">
+
+      <div class="brand-mark">
+        <img
+          src="assets/logo.png"
+          alt="Firstoption logo"
+        >
+      </div>
+
+      <div class="brand-text">
+        <strong>Firstoption</strong>
+        <span>Sales Hub</span>
+      </div>
+
+    </div>
+
+
+    <!-- NAVIGATION -->
+    <nav
+      class="main-navigation"
+      aria-label="Main navigation"
+    >
+
+      <a
+        href="#dashboard"
+        class="nav-item active"
+        data-view="dashboard"
+      >
+        <span
+          class="nav-icon"
+          aria-hidden="true"
+        >▦</span>
+
+        <span>Dashboard</span>
+      </a>
+
+
+      <a
+        href="#transactions"
+        class="nav-item"
+        data-view="transactions"
+      >
+        <span
+          class="nav-icon"
+          aria-hidden="true"
+        >▤</span>
+
+        <span>Transactions</span>
+      </a>
+
+
+      <a
+        href="#products"
+        class="nav-item"
+        data-view="products"
+      >
+        <span
+          class="nav-icon"
+          aria-hidden="true"
+        >◫</span>
+
+        <span>Products</span>
+      </a>
+
+
+      <a
+        href="#customers"
+        class="nav-item"
+        data-view="customers"
+      >
+        <span
+          class="nav-icon"
+          aria-hidden="true"
+        >♙</span>
+
+        <span>Customers</span>
+      </a>
+
+    </nav>
+
+
+    <!-- SIDEBAR STATUS -->
+    <div class="sidebar-footer">
+
+      <span
+        class="status-dot"
+        aria-hidden="true"
+      ></span>
+
+      <span>Data connected</span>
+
+    </div>
+
+  </aside>
+
+
+  <!-- =====================================================
+       MAIN CONTENT
+       ===================================================== -->
+
+  <main class="main">
+
+    <!-- ===================================================
+         PAGE HEADER
+         =================================================== -->
+
+    <header class="topbar">
+
+      <div class="page-heading">
+
+        <p class="eyebrow">
+          PORT HARCOURT SALES
+        </p>
+
+        <h1>
+          Sales Dashboard
+        </h1>
+
+        <p class="subtle">
+          A live view of sales performance, customers and transactions.
+        </p>
+
+      </div>
+
+
+      <!-- ACTIONS -->
+
+      <div class="top-actions">
+
+        <label
+          class="upload-btn"
+          for="fileInput"
+        >
+
+          <input
+            id="fileInput"
+            type="file"
+            accept=".csv"
+            aria-label="Import sales CSV"
+          >
+
+          <span>Import CSV</span>
+
+        </label>
+
+
+        <button
+          id="resetBtn"
+          class="ghost-btn"
+          type="button"
+        >
+          Reset
+        </button>
+
+      </div>
+
+    </header>
+
+
+    <!-- ===================================================
+         FILTERS
+         =================================================== -->
+
+    <section
+      class="filters card view-dashboard"
+      aria-label="Dashboard filters"
+    >
+
+      <div class="filter-title">
+        Filters
+      </div>
+
+
+      <!-- DATE FROM -->
+
+      <label>
+
+        <span>Date from</span>
+
+        <input
+          id="dateFrom"
+          type="date"
+        >
+
+      </label>
+
+
+      <!-- DATE TO -->
+
+      <label>
+
+        <span>Date to</span>
+
+        <input
+          id="dateTo"
+          type="date"
+        >
+
+      </label>
+
+
+      <!-- CUSTOMER CATEGORY -->
+
+      <label>
+
+        <span>Customer category</span>
+
+        <select id="categoryFilter">
+
+          <option value="">
+            All categories
+          </option>
+
+        </select>
+
+      </label>
+
+
+      <!-- CUSTOMER -->
+
+      <label>
+
+        <span>Customer</span>
+
+        <select id="customerFilter">
+
+          <option value="">
+            All customers
+          </option>
+
+        </select>
+
+      </label>
+
+
+      <!-- ITEM -->
+
+      <label>
+
+        <span>Item</span>
+
+        <select id="itemFilter">
+
+          <option value="">
+            All items
+          </option>
+
+        </select>
+
+      </label>
+
+
+      <!-- SEARCH -->
+
+      <label>
+
+        <span>Search</span>
+
+        <input
+          id="searchFilter"
+          type="search"
+          placeholder="Customer, invoice, item..."
+          autocomplete="off"
+        >
+
+      </label>
+
+    </section>
+
+
+    <!-- ===================================================
+         KPI SUMMARY
+         =================================================== -->
+
+    <section
+      class="kpis"
+      aria-label="Sales performance summary"
+    >
+
+
+      <!-- TOTAL SALES -->
+
+      <article class="kpi card">
+
+        <div class="kpi-label">
+          Total Sales
+        </div>
+
+        <strong
+          id="kpiSales"
+          class="kpi-value"
+        >
+          ₦0
+        </strong>
+
+        <div class="kpi-bottom">
+
+          <small id="kpiSalesMeta">
+            0 transactions
+          </small>
+
+          <!-- JS will populate this -->
+          <span
+            id="kpiSalesChange"
+            class="kpi-change"
+            aria-label="Sales change from previous month"
+          ></span>
+
+        </div>
+
+      </article>
+
+
+      <!-- INVOICES -->
+
+      <article class="kpi card">
+
+        <div class="kpi-label">
+          Invoices
+        </div>
+
+        <strong
+          id="kpiInvoices"
+          class="kpi-value"
+        >
+          0
+        </strong>
+
+        <div class="kpi-bottom">
+
+          <small>
+            unique invoice numbers
+          </small>
+
+          <span
+            id="kpiInvoicesChange"
+            class="kpi-change"
+            aria-label="Invoice change from previous month"
+          ></span>
+
+        </div>
+
+      </article>
+
+
+      <!-- UNITS SOLD -->
+
+      <article class="kpi card">
+
+        <div class="kpi-label">
+          Units Sold
+        </div>
+
+        <strong
+          id="kpiUnits"
+          class="kpi-value"
+        >
+          0
+        </strong>
+
+        <div class="kpi-bottom">
+
+          <small>
+            numeric quantities
+          </small>
+
+          <span
+            id="kpiUnitsChange"
+            class="kpi-change"
+            aria-label="Units sold change from previous month"
+          ></span>
+
+        </div>
+
+      </article>
+
+
+      <!-- CUSTOMERS -->
+
+      <article class="kpi card">
+
+        <div class="kpi-label">
+          Customers
+        </div>
+
+        <strong
+          id="kpiCustomers"
+          class="kpi-value"
+        >
+          0
+        </strong>
+
+        <div class="kpi-bottom">
+
+          <small>
+            unique customers
+          </small>
+
+          <span
+            id="kpiCustomersChange"
+            class="kpi-change"
+            aria-label="Customer change from previous month"
+          ></span>
+
+        </div>
+
+      </article>
+
+
+      <!-- AVERAGE TRANSACTION -->
+
+      <article class="kpi card">
+
+        <div class="kpi-label">
+          Avg. Transaction
+        </div>
+
+        <strong
+          id="kpiAverage"
+          class="kpi-value"
+        >
+          ₦0
+        </strong>
+
+        <div class="kpi-bottom">
+
+          <small>
+            average recorded sale
+          </small>
+
+          <span
+            id="kpiAverageChange"
+            class="kpi-change"
+            aria-label="Average transaction change from previous month"
+          ></span>
+
+        </div>
+
+      </article>
+
+    </section>
+
+
+    <!-- ===================================================
+         DASHBOARD VIEW
+         =================================================== -->
+
+    <section
+      id="dashboardView"
+      class="page-view view-dashboard"
+    >
+
+
+      <!-- =================================================
+           ROW 1
+           ================================================= -->
+
+      <div class="grid two">
+
+
+        <!-- SALES TREND -->
+
+        <article class="card chart-card">
+
+          <div class="card-head">
+
+            <div>
+
+              <h2>
+                Sales Trend
+              </h2>
+
+              <p>
+                Monthly revenue performance
+              </p>
+
+            </div>
+
+          </div>
+
+          <div
+            id="salesTrend"
+            class="chart"
+            role="img"
+            aria-label="Monthly sales trend chart"
+          ></div>
+
+        </article>
+
+
+        <!-- TRANSACTIONS BY CATEGORY -->
+
+        <article class="card chart-card">
+
+          <div class="card-head">
+
+            <div>
+
+              <h2>
+                Transactions by Customer Category
+              </h2>
+
+              <p>
+                Transaction frequency by customer type
+              </p>
+
+            </div>
+
+          </div>
+
+          <div
+            id="categoryTransactionChart"
+            class="chart chart-donut"
+            role="img"
+            aria-label="Transactions by customer category chart"
+          ></div>
+
+        </article>
+
+      </div>
+
+
+      <!-- =================================================
+           ROW 2
+           ================================================= -->
+
+      <div class="grid two">
+
+
+        <!-- SALES BY CATEGORY -->
+
+        <article class="card chart-card">
+
+          <div class="card-head">
+
+            <div>
+
+              <h2>
+                Sales by Category
+              </h2>
+
+              <p>
+                Revenue generated by customer category
+              </p>
+
+            </div>
+
+          </div>
+
+          <div
+            id="categoryChart"
+            class="chart"
+            role="img"
+            aria-label="Sales by customer category chart"
+          ></div>
+
+        </article>
+
+
+        <!-- TOP PRODUCTS -->
+
+        <article class="card chart-card">
+
+          <div class="card-head">
+
+            <div>
+
+              <h2>
+                Top Products
+              </h2>
+
+              <p>
+                Highest revenue-generating products
+              </p>
+
+            </div>
+
+          </div>
+
+          <div
+            id="productChart"
+            class="chart"
+            role="img"
+            aria-label="Top products chart"
+          ></div>
+
+        </article>
+
+      </div>
+
+
+      <!-- =================================================
+           ROW 3
+           ================================================= -->
+
+      <div class="grid two">
+
+
+        <!-- TOP CUSTOMERS FREQUENCY -->
+
+        <article class="card chart-card">
+
+          <div class="card-head">
+
+            <div>
+
+              <h2>
+                Top Customers by Frequency
+              </h2>
+
+              <p>
+                Customers with the highest number of transactions
+              </p>
+
+            </div>
+
+          </div>
+
+          <div
+            id="topCustomersFrequencyChart"
+            class="chart"
+            role="img"
+            aria-label="Top customers by transaction frequency chart"
+          ></div>
+
+        </article>
+
+
+        <!-- CUSTOMER STATUS -->
+
+        <article class="card chart-card">
+
+          <div class="card-head">
+
+            <div>
+
+              <h2>
+                Customer Status
+              </h2>
+
+              <p>
+                New and returning customers as recorded
+              </p>
+
+            </div>
+
+          </div>
+
+          <div
+            id="statusChart"
+            class="chart chart-donut"
+            role="img"
+            aria-label="Customer status chart"
+          ></div>
+
+        </article>
+
+      </div>
+
+
+      <!-- =================================================
+           ROW 4
+           ================================================= -->
+
+      <div class="grid two">
+
+
+        <!-- SALES ACTIVITY -->
+
+        <article class="card chart-card">
+
+          <div class="card-head">
+
+            <div>
+
+              <h2>
+                Sales Activity
+              </h2>
+
+              <p>
+                Monthly transaction activity
+              </p>
+
+            </div>
+
+          </div>
+
+          <div
+            id="salesActivityChart"
+            class="chart"
+            role="img"
+            aria-label="Monthly sales activity chart"
+          ></div>
+
+        </article>
+
+
+        <!-- TOP CUSTOMERS BY SALES -->
+
+        <article class="card chart-card">
+
+          <div class="card-head">
+
+            <div>
+
+              <h2>
+                Top Customers by Sales
+              </h2>
+
+              <p>
+                Customers generating the highest revenue
+              </p>
+
+            </div>
+
+          </div>
+
+          <div
+            id="topCustomersSalesChart"
+            class="chart"
+            role="img"
+            aria-label="Top customers by sales chart"
+          ></div>
+
+        </article>
+
+      </div>
+
+    </section>
+
+
+    <!-- ===================================================
+         TRANSACTIONS VIEW
+         =================================================== -->
+
+    <section
+      id="transactionsView"
+      class="card table-card page-view view-transactions"
+      style="display:none"
+    >
+
+      <div class="card-head">
+
+        <div>
+
+          <h2>
+            Sales Transactions
+          </h2>
+
+          <p id="rowCount">
+            0 records
+          </p>
+
+        </div>
+
+
+        <button
+          id="exportBtn"
+          class="ghost-btn"
+          type="button"
+        >
+          Export filtered CSV
+        </button>
+
+      </div>
+
+
+      <div class="table-wrap">
+
+        <table>
+
+          <thead>
+
+            <tr>
+
+              <th>Date</th>
+              <th>Customer</th>
+              <th>Category</th>
+              <th>Invoice</th>
+              <th>Item</th>
+              <th>Qty</th>
+              <th>Rate</th>
+              <th>Total</th>
+
+            </tr>
+
+          </thead>
+
+          <tbody id="salesTable"></tbody>
+
+        </table>
+
+      </div>
+
+
+      <div class="pagination">
+
+        <button
+          id="prevBtn"
+          type="button"
+        >
+          Previous
+        </button>
+
+        <span id="pageInfo">
+          Page 1
+        </span>
+
+        <button
+          id="nextBtn"
+          type="button"
+        >
+          Next
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- ===================================================
+         PRODUCTS VIEW
+         =================================================== -->
+
+    <section
+      id="productsView"
+      class="card data-view page-view view-products"
+      style="display:none"
+    >
+
+      <div class="card-head">
+
+        <div>
+
+          <h2>
+            Products
+          </h2>
+
+          <p>
+            Product performance from the sales records
+          </p>
+
+        </div>
+
+        <span
+          id="productCount"
+          class="view-meta"
+        ></span>
+
+      </div>
+
+
+      <div class="table-wrap">
+
+        <table>
+
+          <thead>
+
+            <tr>
+
+              <th>Product</th>
+              <th>Transactions</th>
+              <th>Quantity</th>
+              <th>Sales</th>
+              <th>Avg. Rate</th>
+
+            </tr>
+
+          </thead>
+
+          <tbody id="productsTable"></tbody>
+
+        </table>
+
+      </div>
+
+    </section>
+
+
+    <!-- ===================================================
+         CUSTOMERS VIEW
+         =================================================== -->
+
+    <section
+      id="customersView"
+      class="card data-view page-view view-customers"
+      style="display:none"
+    >
+
+      <div class="card-head">
+
+        <div>
+
+          <h2>
+            Customers
+          </h2>
+
+          <p>
+            Customer-level sales and transaction summary
+          </p>
+
+        </div>
+
+        <span
+          id="customerCount"
+          class="view-meta"
+        ></span>
+
+      </div>
+
+
+      <div class="table-wrap">
+
+        <table>
+
+          <thead>
+
+            <tr>
+
+              <th>Customer</th>
+              <th>Contact</th>
+              <th>Status</th>
+              <th>Category</th>
+              <th>Transactions</th>
+              <th>Total Sales</th>
+
+            </tr>
+
+          </thead>
+
+          <tbody id="customersTable"></tbody>
+
+        </table>
+
+      </div>
+
+    </section>
+
+
+    <!-- ===================================================
+         FOOTER
+         ===================================================
+         Reserved for the next styling update.
+         =================================================== -->
+
+    <footer class="dashboard-footer">
+
+      <div class="footer-left">
+        <strong>Firstoption Sales Hub</strong>
+        <span>Sales analytics dashboard</span>
+      </div>
+
+      <div class="footer-right">
+        <span>Data connected</span>
+      </div>
+
+    </footer>
+
+  </main>
+
+</div>
+
+
+<!-- =====================================================
+     PAPA PARSE
+     ===================================================== -->
+<!-- =====================================================
+     PLOTLY
+     ===================================================== -->
+
+<script
+  src="https://cdn.plot.ly/plotly-2.35.2.min.js"
+></script>
+
+<!-- =====================================================
+     PAPA PARSE
+     ===================================================== -->
+
+<script
+  src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"
+></script>
+
+<!-- =====================================================
+     DASHBOARD APPLICATION
+     ===================================================== -->
+
+<script src="js/app.js"></script>
+</body>
+</html>
